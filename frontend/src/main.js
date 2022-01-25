@@ -5,5 +5,7 @@ import store from './store';
 import './style.scss';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import { registerSW } from 'virtual:pwa-register';
+registerSW();
 
 createApp(App).use(router).use(store).use(VueAxios, axios).mount('#app');
