@@ -1,12 +1,11 @@
+// Dependencies
 import { createStore } from 'vuex';
 
-const mutations = {
-		increment(state) {
-			state.counter += 1;
-		}
-	},
-	state = {
-		counter: 0
-	};
+//Store configuration
+const mutations = {};
 
-export default createStore({ mutations, state, strict: true });
+const state = {};
+
+const store = createStore({ mutations, state, strict: true });
+
+export default store;

@@ -2,6 +2,12 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
 .bg-black {
 	background-color: #f00;
 }
