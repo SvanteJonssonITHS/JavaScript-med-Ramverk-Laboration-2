@@ -2,9 +2,15 @@
 import { createStore } from 'vuex';
 
 //Store configuration
-const mutations = {};
+const mutations = {
+	changeResult(state, newResult) {
+		state.result = newResult;
+	}
+};
 
-const state = {};
+const state = {
+	result: {}
+};
 
 const store = createStore({ mutations, state, strict: true });
 
