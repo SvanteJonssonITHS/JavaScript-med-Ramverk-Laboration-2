@@ -17,6 +17,12 @@
 				);
 				this.suggestions = response.data.Search;
 				console.log(response.data.Search);
+			},
+			async fetchResult(input) {
+				const response = await this.axios.get(
+					`/api/fetchResult/${input}`
+				);
+				this.$store.commit('changeResult', response.data);
 			}
 		},
 		watch: {
