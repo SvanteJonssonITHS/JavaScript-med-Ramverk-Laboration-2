@@ -1,9 +1,13 @@
 <script>
+	import Suggestion from './Suggestion.vue';
+
 	export default {
+		components: { Suggestion },
 		data() {
 			return {
 				query: '',
-				queryChangesSinceFetch: 0
+				queryChangesSinceFetch: 0,
+				suggestions: []
 			};
 		},
 		methods: {
@@ -11,8 +15,8 @@
 				const response = await this.axios.get(
 					`/api/fetchSuggestions/${input}`
 				);
-				const result = response.data;
-				console.log(result);
+				this.suggestions = response.data.Search;
+				console.log(response.data.Search);
 			}
 		},
 		watch: {
@@ -25,6 +29,9 @@
 					this.queryChangesSinceFetch = 0;
 				}
 			}
+		},
+		created() {
+			this.fetchSuggestions('temp');
 		}
 	};
 </script>
@@ -32,6 +39,16 @@
 <template>
 	<form class="">
 		<input v-model="query" />
+		<ul>
+			<li v-for="suggestion in suggestions">
+				<Suggestion
+					:title="suggestion.Title"
+					:year="suggestion.Year"
+					:posterURL="suggestion.Poster"
+					class="bg-green-200 h-32 w-full"
+				/>
+			</li>
+		</ul>
 	</form>
 </template>
 
