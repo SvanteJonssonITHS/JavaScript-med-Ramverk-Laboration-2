@@ -1,13 +1,16 @@
+// Dependencies
 const express = require('express');
-const app = express();
-app.use(express.json());
-const port = 3000;
 const history = require('connect-history-api-fallback');
 const dotenv = require('dotenv');
 const path = require('path');
+
+// Variable declaration
+const app = express();
+const port = 3000;
+
 require('dotenv').config();
 
-app.get('/api/', (req, res) => res.send(`${process.env.TEST}`));
+app.use('/api', require('./router'));
 
 app.use(history());
 
