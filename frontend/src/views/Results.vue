@@ -8,7 +8,7 @@
 		<section class="w-4/5 mx-auto">
 			<ResultsList>
 				<li v-for="result in results">
-					<router-link to="/">
+					<router-link :to="`/title/${result.imdbID}`">
 						<Result
 							class="h-24 w-full border-b-2 border-slate-300"
 							:title="result.Title"
