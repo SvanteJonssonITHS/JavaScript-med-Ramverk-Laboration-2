@@ -8,8 +8,12 @@
 </script>
 
 <template>
-	<Navbar />
-	<router-view></router-view>
+	<Navbar siteName="MovieDB" />
+	<router-view id="main" class="bg-slate-200"></router-view>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+	#main {
+		min-height: calc(100vh - 68px);
+	}
+</style>
