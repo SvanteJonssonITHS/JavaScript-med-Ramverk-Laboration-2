@@ -18,7 +18,7 @@
 </script>
 
 <template>
-	<article class="flex h-full p-2">
+	<article class="flex h-full p-1">
 		<section class="h-full">
 			<img
 				:src="this.posterURL"
