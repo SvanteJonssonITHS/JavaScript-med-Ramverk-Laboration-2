@@ -1,10 +1,8 @@
 <template>
 	<main class="h-full grid place-items-center">
-		<form action="" class="w-2/6">
+		<form @submit.prevent="search(query)" class="w-2/6">
 			<input
-				type="text"
-				name=""
-				id=""
+				v-model="query"
 				placeholder="Search for movies, TV-series and more..."
 				class="w-full p-3 rounded-full font-semibold drop-shadow-md focus:outline-none"
 			/>
@@ -14,6 +12,16 @@
 
 <script>
 	export default {
-		name: 'Home'
+		name: 'Home',
+		data() {
+			return {
+				query: ''
+			};
+		},
+		methods: {
+			search(input) {
+				this.$router.push(`/results/${input}`);
+			}
+		}
 	};
 </script>
