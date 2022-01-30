@@ -24,9 +24,9 @@
 		},
 		computed: {
 			titleMetadata() {
-				return `${this.type[0].toUpperCase() + this.type.slice(1)} • ${
-					this.year
-				} • ${this.rated} • ${this.runtime}`;
+				return `${this.type[0].toUpperCase() + this.type.slice(1)} • ${this.year} • ${
+					this.rated
+				} • ${this.runtime}`;
 			}
 		}
 	};
@@ -38,7 +38,7 @@
 			<h1 class="text-5xl font-semibold mb-2">{{ name }}</h1>
 			<p>{{ titleMetadata }}</p>
 		</section>
-		<section class="bg-amber-300 flex items-center">
+		<section class="flex items-center">
 			<slot></slot>
 		</section>
 	</article>
