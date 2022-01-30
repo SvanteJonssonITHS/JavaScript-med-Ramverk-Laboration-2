@@ -1,5 +1,12 @@
 <template>
-	<main class="h-full">
+	<main class="h-full relative">
+		<FavoriteNotice
+			v-if="showFavoriteNotice"
+			:name="title.Title"
+			:favorite="isFavorite"
+			class="absolute top-0 right-0"
+			:class="{ noticeFade: showFavoriteNotice }"
+		/>
 		<TitleHeader
 			v-if="title"
 			:name="title.Title"
@@ -9,6 +16,11 @@
 			:runtime="title.Runtime"
 			class="w-4/5 mx-auto"
 		>
+			<button @click="handleFavorite()" title="Add/Remove from favorites">
+				<span class="material-icons text-emerald-500 text-5xl p-4 rounded-full hover:bg-slate-100">
+					{{ favoriteSymbol }}
+				</span>
+			</button>
 		</TitleHeader>
 		<TitleBody
 			v-if="title"
@@ -24,16 +36,20 @@
 <script>
 	import TitleHeader from '../components/TitleHeader.vue';
 	import TitleBody from '../components/TitleBody.vue';
+	import FavoriteNotice from '../components/FavoriteNotice.vue';
 	export default {
 		name: 'Title',
 		components: {
 			TitleHeader,
-			TitleBody
+			TitleBody,
+			FavoriteNotice
 		},
 		data() {
 			return {
 				title: null,
-				metadata: []
+				metadata: [],
+				isFavorite: false,
+				showFavoriteNotice: false
 			};
 		},
 		methods: {
@@ -105,6 +121,37 @@
 						body: this.title.BoxOffice
 					});
 				}
+			},
+			checkFavorites() {
+				if (localStorage.getItem('favorites')) {
+					const favorites = JSON.parse(localStorage.getItem('favorites'));
+					favorites.filter((o) => {
+						if (o.imdbID == this.title.imdbID) {
+							this.isFavorite = true;
+							return;
+						}
+					});
+				}
+			},
+			handleFavorite() {
+				let favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+				switch (this.isFavorite) {
+					case true:
+						this.isFavorite = false;
+						favorites = favorites.filter((o) => o.imdbID != this.title.imdbID);
+						localStorage.setItem('favorites', JSON.stringify(favorites));
+						break;
+					case false:
+						this.isFavorite = true;
+						favorites.push(this.title);
+						localStorage.setItem('favorites', JSON.stringify(favorites));
+						break;
+				}
+				this.displayFavoriteNotice();
+			},
+			displayFavoriteNotice() {
+				this.showFavoriteNotice = true;
+				setTimeout(() => (this.showFavoriteNotice = false), 2500);
 			}
 		},
 		created() {
@@ -115,7 +162,33 @@
 				if (!this.title) return;
 				if (!this.title.Genre.isArray) this.prepareGenres();
 				this.prepareMetadata();
+				this.checkFavorites();
+			}
+		},
+		computed: {
+			favoriteSymbol() {
+				return this.isFavorite ? 'favorite' : 'favorite_border';
 			}
 		}
 	};
 </script>
+
+<style scoped>
+	.noticeFade {
+		opacity: 0;
+		animation: fade 2500ms linear;
+	}
+
+	@keyframes fade {
+		0%,
+		100% {
+			opacity: 0;
+		}
+		35% {
+			opacity: 1;
+		}
+		65% {
+			opacity: 1;
+		}
+	}
+</style>
