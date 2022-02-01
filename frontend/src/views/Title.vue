@@ -58,7 +58,7 @@
 				this.title = response.data;
 			},
 			prepareGenres() {
-				this.title.Genre = this.title.Genre.split(', ');
+				if (typeof this.title.Genre == 'string') this.title.Genre = this.title.Genre.split(', ');
 			},
 			prepareMetadata() {
 				if (this.title.Director && this.title.Director != 'N/A') {
@@ -152,10 +152,24 @@
 			displayFavoriteNotice() {
 				this.showFavoriteNotice = true;
 				setTimeout(() => (this.showFavoriteNotice = false), 2500);
+			},
+			getTitleOffline() {
+				if (localStorage.getItem('favorites')) {
+					let favorites = JSON.parse(localStorage.getItem('favorites'));
+					favorites = favorites.filter((o) => o.imdbID === this.$route.params.imdbID);
+					if (favorites == 1) {
+						this.isFavorite = true;
+						this.title = favorites[0];
+					}
+				}
 			}
 		},
 		created() {
-			this.getTitle(this.$route.params.imdbID);
+			if (navigator.onLine) {
+				this.getTitle(this.$route.params.imdbID);
+			} else {
+				this.getTitleOffline();
+			}
 		},
 		watch: {
 			title() {
