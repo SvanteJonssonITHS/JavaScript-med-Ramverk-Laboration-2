@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [
 		VitePWA({
 			manifest: {
-				background_color: 'grey',
+				background_color: '#e2e8f0',
 				display: 'standalone',
 				icons: [
 					{
@@ -37,7 +37,7 @@ export default defineConfig({
 				name: 'MovieDB',
 				short_name: 'MDB',
 				start_url: '/',
-				theme_color: 'blue'
+				theme_color: '#3b82f6'
 			},
 			registerType: 'autoUpdate',
 			workbox: {
@@ -45,7 +45,7 @@ export default defineConfig({
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',
-						urlPattern: /http:\/\/localhost\:3000\/api\/getTitle\/.+/
+						urlPattern: /http:\/\/localhost:3000\/api\/getTitle\/.+/
 					},
 					{
 						handler: 'NetworkFirst',
