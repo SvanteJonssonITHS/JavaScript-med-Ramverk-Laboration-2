@@ -28,4 +28,9 @@ const router = createRouter({
 	]
 });
 
+router.beforeEach((to, from, next) => {
+	document.title = `MovieDB - ${String(to.name)}`;
+	next();
+});
+
 export default router;
