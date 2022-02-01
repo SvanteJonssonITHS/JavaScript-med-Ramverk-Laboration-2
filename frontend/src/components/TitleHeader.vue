@@ -24,9 +24,9 @@
 		},
 		computed: {
 			titleMetadata() {
-				return `${this.type[0].toUpperCase() + this.type.slice(1)} • ${this.year} • ${
-					this.rated
-				} • ${this.runtime}`;
+				return `${this.type[0].toUpperCase() + this.type.slice(1)} • ${this.year} • ${this.rated} • ${
+					this.runtime
+				}`;
 			}
 		}
 	};

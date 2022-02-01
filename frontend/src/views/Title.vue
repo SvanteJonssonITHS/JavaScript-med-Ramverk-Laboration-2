@@ -14,7 +14,7 @@
 			:year="title.Year"
 			:rated="title.Rated"
 			:runtime="title.Runtime"
-			class="w-4/5 mx-auto"
+			class="w-11/12 md:w-4/5 mx-auto"
 		>
 			<button @click="handleFavorite()" title="Add/Remove from favorites">
 				<span class="material-icons text-emerald-500 text-5xl p-4 rounded-full hover:bg-slate-100">
@@ -28,8 +28,12 @@
 			:genres="title.Genre"
 			:plot="title.Plot"
 			:metadata="metadata"
-			class="w-4/5 mx-auto"
+			class="w-11/12 md:w-4/5 mx-auto"
 		/>
+		<h1 v-if="!title" class="w-11/12 md:w-4/5 mx-auto font-semibold text-lg p-40">
+			Something went wrong and the title was not found. <br />
+			Sorry!
+		</h1>
 	</main>
 </template>
 
@@ -54,8 +58,21 @@
 		},
 		methods: {
 			async getTitle(input) {
+				if (localStorage.getItem('favorites')) {
+					let favorites = JSON.parse(localStorage.getItem('favorites'));
+					favorites = favorites.filter((o) => o.imdbID === this.$route.params.imdbID);
+					if (favorites.length == 1) {
+						this.isFavorite = true;
+						this.title = favorites[0];
+						return;
+					}
+				}
+				// A request to the api is only made if the title is not already saved locally
 				const response = await this.axios.get(`/api/getTitle/${input}`);
-				this.title = response.data;
+				if (response.data.Response == 'True') {
+					this.title = response.data;
+					return;
+				}
 			},
 			prepareGenres() {
 				if (typeof this.title.Genre == 'string') this.title.Genre = this.title.Genre.split(', ');
@@ -165,11 +182,7 @@
 			}
 		},
 		created() {
-			if (navigator.onLine) {
-				this.getTitle(this.$route.params.imdbID);
-			} else {
-				this.getTitleOffline();
-			}
+			this.getTitle(this.$route.params.imdbID);
 		},
 		watch: {
 			title() {

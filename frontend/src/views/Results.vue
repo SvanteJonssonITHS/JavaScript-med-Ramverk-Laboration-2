@@ -1,18 +1,18 @@
 <template>
 	<main class="h-full">
-		<section class="py-4 w-4/5 mx-auto">
+		<section class="py-4 w-11/12 md:w-4/5 mx-auto">
 			<h1 class="text-3xl"><span class="font-bold">Search results for:</span> {{ query }}</h1>
 		</section>
-		<section class="w-4/5 mx-auto flex flex-wrap">
-			<SortSearch @changeSort="changeSort" @search="updatePage" class="" />
-			<ResultsList class="">
-				<li v-for="result in shownResults">
+		<section class="w-11/12 md:w-4/5 mx-auto flex flex-wrap">
+			<SortSearch @change-sort="changeSort" @search="newSearch" class="px-3" />
+			<ResultsList class="grow">
+				<li v-for="result in shownResults" :key="result.imdbID">
 					<router-link :to="`/title/${result.imdbID}`">
 						<Result
-							class="h-24 w-full border-b-2 border-slate-300"
+							class="h-24 w-full border-b-2 border-slate-300 hover:bg-slate-100"
 							:title="result.Title"
 							:year="result.Year"
-							:posterURL="result.Poster"
+							:poster-u-r-l="result.Poster"
 						/>
 					</router-link>
 				</li>
@@ -31,17 +31,20 @@
 		data() {
 			return {
 				query: this.$route.params.query || '',
-				originalResults: {},
-				shownResults: {}
+				originalResults: null,
+				shownResults: null
 			};
 		},
 		methods: {
 			async getResults(input) {
 				const response = await this.axios.get(`/api/getResults/${input}`);
-				this.originalResults = response.data.Search;
-				this.shownResults = [...this.originalResults];
+				if (response.data.Search) {
+					this.originalResults = response.data.Search;
+					this.shownResults = [...this.originalResults];
+				}
 			},
 			changeSort(typeOfSort, reverseSort) {
+				if (!this.shownResults) return;
 				let order = [...this.shownResults];
 				switch (typeOfSort) {
 					case 'best':
@@ -51,7 +54,7 @@
 						order.sort((a, b) => a.Title.localeCompare(b.Title));
 						break;
 					case 'year':
-						order.sort((a, b) => a.Year.substring(1, 4).localeCompare(b.Year.substring(1, 4)));
+						order.sort((a, b) => parseInt(a.Year.substring(0, 4)) - parseInt(b.Year.substring(0, 4)));
 						break;
 					case 'type':
 						order.sort((a, b) => a.Type.localeCompare(b.Type));
@@ -62,14 +65,15 @@
 				}
 				this.shownResults = reverseSort ? order.reverse() : order;
 			},
-			updatePage(input) {
+			newSearch(input) {
+				this.originalResults = this.shownResults = null;
 				this.$router.push(`/results/${input}`);
 				this.query = input;
 				this.getResults(input);
 			}
 		},
-		async created() {
-			await this.getResults(this.query);
+		created() {
+			this.getResults(this.query);
 			this.changeSort(this.$store.state.typeOfSort, this.$store.state.reverseSort);
 		},
 		watch: {
