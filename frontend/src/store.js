@@ -3,13 +3,17 @@ import { createStore } from 'vuex';
 
 //Store configuration
 const mutations = {
-	changeResult(state, newResult) {
-		state.result = newResult;
+	changeTypeOfSort(state, newResult) {
+		state.typeOfSort = newResult;
+	},
+	changeSortDirection(state) {
+		state.reverseSort = !state.reverseSort;
 	}
 };
 
 const state = {
-	result: {}
+	typeOfSort: 'best',
+	reverseSort: false
 };
 
 const store = createStore({ mutations, state, strict: true });
