@@ -1,9 +1,9 @@
 <template>
 	<main class="h-full">
-		<section class="py-4 w-4/5 mx-auto">
+		<section class="py-4 w-11/12 md:w-4/5 mx-auto">
 			<h1 class="text-3xl"><span class="font-bold">Search results for:</span> {{ query }}</h1>
 		</section>
-		<section class="w-4/5 mx-auto flex flex-wrap">
+		<section class="w-11/12 md:w-4/5 mx-auto flex flex-wrap">
 			<SortSearch @change-sort="changeSort" @search="newSearch" class="px-3" />
 			<ResultsList class="grow">
 				<li v-for="result in shownResults" :key="result.imdbID">

@@ -1,12 +1,12 @@
 <template>
 	<main class="h-full">
-		<section class="py-4 w-4/5 mx-auto">
+		<section class="py-4 w-11/12 md:w-4/5 mx-auto">
 			<h1 class="text-3xl font-bold">My favorites</h1>
 		</section>
-		<section class="w-4/5 mx-auto flex flex-wrap">
+		<section class="w-11/12 md:w-4/5 mx-auto flex flex-wrap">
 			<SortSearch @change-sort="changeSort" @watch-search="searchFavorites" class="px-3" :show-best="false" />
 
-			<ResultsList v-if="favorites" class="grow" no-result-message="No favorites were found!">
+			<ResultsList class="grow" no-result-message="No favorites were found!">
 				<li v-for="favorite in favorites" :key="favorite.imdbID">
 					<router-link :to="`/title/${favorite.imdbID}`">
 						<Result
@@ -70,7 +70,7 @@
 			this.favorites = this.getFavorites();
 			// Since 'best' sort is not an option, it is replaced by 'abc' sort
 			this.typeOfSort = this.typeOfSort == 'best' ? 'abc' : this.typeOfSort;
-			this.changeSort(this.$store.state.typeOfSort, this.$store.state.reverseSort);
+			this.changeSort(this.typeOfSort, this.$store.state.reverseSort);
 		}
 	};
 </script>

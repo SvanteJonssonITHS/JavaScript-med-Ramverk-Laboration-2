@@ -14,7 +14,7 @@
 			:year="title.Year"
 			:rated="title.Rated"
 			:runtime="title.Runtime"
-			class="w-4/5 mx-auto"
+			class="w-11/12 md:w-4/5 mx-auto"
 		>
 			<button @click="handleFavorite()" title="Add/Remove from favorites">
 				<span class="material-icons text-emerald-500 text-5xl p-4 rounded-full hover:bg-slate-100">
@@ -28,9 +28,9 @@
 			:genres="title.Genre"
 			:plot="title.Plot"
 			:metadata="metadata"
-			class="w-4/5 mx-auto"
+			class="w-11/12 md:w-4/5 mx-auto"
 		/>
-		<h1 v-if="!title" class="w-4/5 mx-auto font-semibold text-lg p-40">
+		<h1 v-if="!title" class="w-11/12 md:w-4/5 mx-auto font-semibold text-lg p-40">
 			Something went wrong and the title was not found. <br />
 			Sorry!
 		</h1>

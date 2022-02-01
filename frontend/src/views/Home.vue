@@ -1,6 +1,6 @@
 <template>
 	<main class="h-full grid place-items-center">
-		<form @submit.prevent="search(query)" class="w-4/5 sm:w-2/6">
+		<form @submit.prevent="search(query)" class="w-4/5 md:w-2/6">
 			<input
 				v-model="query"
 				placeholder="Search for movies, TV-series and more..."
