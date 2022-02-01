@@ -7,7 +7,7 @@
 </script>
 
 <template>
-	<Navbar siteName="MovieDB" />
+	<Navbar site-name="MovieDB" />
 	<router-view id="main" class="bg-slate-200"></router-view>
 </template>
 

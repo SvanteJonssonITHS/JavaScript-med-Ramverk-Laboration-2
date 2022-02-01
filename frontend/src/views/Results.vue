@@ -4,15 +4,15 @@
 			<h1 class="text-3xl"><span class="font-bold">Search results for:</span> {{ query }}</h1>
 		</section>
 		<section class="w-4/5 mx-auto flex flex-wrap">
-			<SortSearch @changeSort="changeSort" @search="newSearch" class="px-3" />
+			<SortSearch @change-sort="changeSort" @search="newSearch" class="px-3" />
 			<ResultsList class="">
-				<li v-for="result in shownResults">
+				<li v-for="result in shownResults" :key="result.imdbID">
 					<router-link :to="`/title/${result.imdbID}`">
 						<Result
 							class="h-24 w-full border-b-2 border-slate-300"
 							:title="result.Title"
 							:year="result.Year"
-							:posterURL="result.Poster"
+							:poster-u-r-l="result.Poster"
 						/>
 					</router-link>
 				</li>
@@ -54,7 +54,7 @@
 						order.sort((a, b) => a.Title.localeCompare(b.Title));
 						break;
 					case 'year':
-						order.sort((a, b) => a.Year.substring(1, 4).localeCompare(b.Year.substring(1, 4)));
+						order.sort((a, b) => parseInt(a.Year.substring(1, 4)) - parseInt(b.Year.substring(1, 4)));
 						break;
 					case 'type':
 						order.sort((a, b) => a.Type.localeCompare(b.Type));

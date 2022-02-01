@@ -7,6 +7,7 @@
 				query: this.$route.params.query
 			};
 		},
+		emits: ['changeSort', 'search'],
 		methods: {
 			handleSort(event) {
 				if (event.currentTarget != document.querySelector('.activeSort')) {

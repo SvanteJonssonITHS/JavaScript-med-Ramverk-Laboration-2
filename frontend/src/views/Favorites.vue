@@ -4,14 +4,14 @@
 			<h1 class="text-3xl font-bold">My favorites</h1>
 		</section>
 		<section class="w-4/5 mx-auto flex flex-wrap">
-			<ResultsList v-if="favorites" class="w-full" noResultMessage="No favorites were found!">
-				<li v-for="favorite in favorites">
+			<ResultsList v-if="favorites" class="w-full" no-result-message="No favorites were found!">
+				<li v-for="favorite in favorites" :key="favorite.imdbID">
 					<router-link :to="`/title/${favorite.imdbID}`">
 						<Result
 							class="h-24 w-full border-b-2 border-slate-300"
 							:title="favorite.Title"
 							:year="favorite.Year"
-							:posterURL="favorite.Poster"
+							:poster-u-r-l="favorite.Poster"
 						/>
 					</router-link>
 				</li>
