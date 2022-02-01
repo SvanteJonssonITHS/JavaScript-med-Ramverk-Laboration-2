@@ -4,7 +4,7 @@
 			<h1 class="text-3xl"><span class="font-bold">Search results for:</span> {{ query }}</h1>
 		</section>
 		<section class="w-4/5 mx-auto flex flex-wrap">
-			<SortSearch @changeSort="changeSort" @search="" class="px-3" />
+			<SortSearch @changeSort="changeSort" @search="newSearch" class="px-3" />
 			<ResultsList class="">
 				<li v-for="result in shownResults">
 					<router-link :to="`/title/${result.imdbID}`">
@@ -64,10 +64,16 @@
 						break;
 				}
 				this.shownResults = reverseSort ? order.reverse() : order;
+			},
+			newSearch(input) {
+				this.originalResults = this.shownResults = null;
+				this.$router.push(`/results/${input}`);
+				this.query = input;
+				this.getResults(input);
 			}
 		},
-		async created() {
-			await this.getResults(this.query);
+		created() {
+			this.getResults(this.query);
 			this.changeSort(this.$store.state.typeOfSort, this.$store.state.reverseSort);
 		},
 		watch: {
