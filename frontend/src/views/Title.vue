@@ -30,6 +30,10 @@
 			:metadata="metadata"
 			class="w-4/5 mx-auto"
 		/>
+		<h1 v-if="!title" class="w-4/5 mx-auto font-semibold text-lg p-40">
+			Something went wrong and the title was not found. <br />
+			Sorry!
+		</h1>
 	</main>
 </template>
 
