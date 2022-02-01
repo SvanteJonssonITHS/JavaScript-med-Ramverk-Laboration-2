@@ -1,11 +1,19 @@
 <script>
-	export default {};
+	export default {
+		props: {
+			noResultMessage: {
+				type: String,
+				required: false,
+				default: 'No results were found for:'
+			}
+		}
+	};
 </script>
 
 <template>
 	<ul>
 		<slot>
-			No results were found for:
+			{{ noResultMessage }}
 			<span class="italic">{{ $route.params.query }}</span>
 		</slot>
 	</ul>
