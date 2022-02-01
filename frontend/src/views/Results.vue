@@ -54,7 +54,7 @@
 						order.sort((a, b) => a.Title.localeCompare(b.Title));
 						break;
 					case 'year':
-						order.sort((a, b) => parseInt(a.Year.substring(1, 4)) - parseInt(b.Year.substring(1, 4)));
+						order.sort((a, b) => parseInt(a.Year.substring(0, 4)) - parseInt(b.Year.substring(0, 4)));
 						break;
 					case 'type':
 						order.sort((a, b) => a.Type.localeCompare(b.Type));
