@@ -5,11 +5,11 @@
 		</section>
 		<section class="w-4/5 mx-auto flex flex-wrap">
 			<SortSearch @change-sort="changeSort" @search="newSearch" class="px-3" />
-			<ResultsList class="">
+			<ResultsList class="grow">
 				<li v-for="result in shownResults" :key="result.imdbID">
 					<router-link :to="`/title/${result.imdbID}`">
 						<Result
-							class="h-24 w-full border-b-2 border-slate-300"
+							class="h-24 w-full border-b-2 border-slate-300 hover:bg-slate-100"
 							:title="result.Title"
 							:year="result.Year"
 							:poster-u-r-l="result.Poster"
