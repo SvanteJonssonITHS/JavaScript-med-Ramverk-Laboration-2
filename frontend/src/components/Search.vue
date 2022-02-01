@@ -1,5 +1,5 @@
 <script>
-	import Suggestion from './Suggestion.vue';
+	import Suggestion from './Result.vue';
 
 	export default {
 		components: { Suggestion },
@@ -7,7 +7,8 @@
 			return {
 				query: '',
 				queryChangesSinceFetch: 0,
-				suggestions: []
+				suggestions: [],
+				showSuggestions: false
 			};
 		},
 		methods: {
@@ -23,6 +24,7 @@
 					`/api/fetchResult/${input}`
 				);
 				this.$store.commit('changeResult', response.data);
+				this.$router.push(`/Result/${input}`);
 			}
 		},
 		watch: {
@@ -43,15 +45,20 @@
 </script>
 
 <template>
-	<form class="">
-		<input v-model="query" />
-		<ul>
+	<form class="" @submit.prevent="fetchResult(query)">
+		<input
+			v-model="query"
+			@focus="showSuggestions = true"
+			@blur="showSuggestions = false"
+		/>
+		<ul v-if="showSuggestions">
 			<li v-for="suggestion in suggestions">
 				<Suggestion
+					class="bg-green-200 h-32 w-full"
 					:title="suggestion.Title"
 					:year="suggestion.Year"
 					:posterURL="suggestion.Poster"
-					class="bg-green-200 h-32 w-full"
+					@click="query = suggestion.Title"
 				/>
 			</li>
 		</ul>
