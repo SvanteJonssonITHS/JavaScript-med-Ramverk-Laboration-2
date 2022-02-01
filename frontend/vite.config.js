@@ -45,11 +45,11 @@ export default defineConfig({
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',
-						urlPattern: /http:\/\/localhost:3000\/api\/getTitle\/.+/
+						urlPattern: /https:\/\/svantejonsson.com\/api\/getTitle\/.+/
 					},
 					{
 						handler: 'NetworkFirst',
-						urlPattern: /http:\/\/localhost:3000\/api\/getResults\/.+/
+						urlPattern: /https:\/\/svantejonsson.com\/api\/getResults\/.+/
 					},
 					{
 						handler: 'NetworkFirst',

@@ -58,22 +58,46 @@
 <template>
 	<section>
 		<input type="text" v-model="query" @keyup.enter="handleSearch" @change="handleChange" class="rounded p-2" />
-		<button @click="handleSort($event)" id="best" class="flex p-2" :class="{ activeSort: typeOfSort == 'best' }" v-if="showBest">
+		<button
+			@click="handleSort($event)"
+			id="best"
+			class="flex p-2 hover:bg-slate-300 rounded"
+			:class="{ activeSort: typeOfSort == 'best' }"
+			v-if="showBest"
+		>
 			<p>Best match</p>
 			<span class="material-icons" v-if="reverseSort && typeOfSort == 'best'">arrow_drop_up</span>
 			<span class="material-icons" v-else>arrow_drop_down</span>
 		</button>
-		<button @click="handleSort($event)" id="abc" class="flex p-2" :class="{ activeSort: typeOfSort == 'abc' }" v-if="showAbc">
+		<button
+			@click="handleSort($event)"
+			id="abc"
+			class="flex p-2 hover:bg-slate-300 rounded"
+			:class="{ activeSort: typeOfSort == 'abc' }"
+			v-if="showAbc"
+		>
 			<p>Alphabetically</p>
 			<span class="material-icons" v-if="reverseSort && typeOfSort == 'abc'">arrow_drop_up</span>
 			<span class="material-icons" v-else>arrow_drop_down</span>
 		</button>
-		<button @click="handleSort($event)" id="year" class="flex p-2" :class="{ activeSort: typeOfSort == 'year' }" v-if="showYear">
+		<button
+			@click="handleSort($event)"
+			id="year"
+			class="flex p-2 hover:bg-slate-300 rounded"
+			:class="{ activeSort: typeOfSort == 'year' }"
+			v-if="showYear"
+		>
 			<p>Year</p>
 			<span class="material-icons" v-if="reverseSort && typeOfSort == 'year'">arrow_drop_up</span>
 			<span class="material-icons" v-else>arrow_drop_down</span>
 		</button>
-		<button @click="handleSort($event)" id="type" class="flex p-2" :class="{ activeSort: typeOfSort == 'type' }" v-if="showType">
+		<button
+			@click="handleSort($event)"
+			id="type"
+			class="flex p-2 hover:bg-slate-300 rounded"
+			:class="{ activeSort: typeOfSort == 'type' }"
+			v-if="showType"
+		>
 			<p>Type</p>
 			<span class="material-icons" v-if="reverseSort && typeOfSort == 'type'">arrow_drop_up</span>
 			<span class="material-icons" v-else>arrow_drop_down</span>
