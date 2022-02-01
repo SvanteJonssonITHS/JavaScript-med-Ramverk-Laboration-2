@@ -16,6 +16,11 @@ const router = createRouter({
 			path: '/results/:query'
 		},
 		{
+			name: 'Favorites',
+			component: () => import('./views/Favorites.vue'),
+			path: '/favorites/'
+		},
+		{
 			name: 'Title',
 			component: () => import('./views/Title.vue'),
 			path: '/title/:imdbID'
