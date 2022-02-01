@@ -24,14 +24,12 @@
 <template>
 	<article class="flex flex-wrap py-4">
 		<section class="max-w-xs">
-			<img :src="posterURL" alt="Poster" />
+			<img v-if="this.posterURL !== 'N/A'" :src="posterURL" alt="Poster" />
 		</section>
 		<section class="grow m-4 max-w-4xl">
 			<ul class="flex">
 				<li v-for="genre in genres" class="grid place-items-middle">
-					<p
-						class="px-3 py-1 rounded-full bg-emerald-500 font-semibold text-white mr-2 hover:bg-emerald-700"
-					>
+					<p class="px-3 py-1 rounded-full bg-emerald-500 font-semibold text-white mr-2 hover:bg-emerald-700">
 						{{ genre }}
 					</p>
 				</li>
