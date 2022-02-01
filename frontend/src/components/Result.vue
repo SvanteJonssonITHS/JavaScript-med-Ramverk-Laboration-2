@@ -18,13 +18,9 @@
 </script>
 
 <template>
-	<article class="flex h-full p-2">
+	<article class="flex h-full p-1">
 		<section class="h-full">
-			<img
-				:src="this.posterURL"
-				:alt="this.title + ' poster'"
-				class="h-full"
-			/>
+			<img v-if="this.posterURL !== 'N/A'" :src="this.posterURL" :alt="this.title + ' poster'" class="h-full" />
 		</section>
 		<section class="pl-2 font-semibold">
 			<h1 class="text-xl">{{ this.title }}</h1>

@@ -5,24 +5,25 @@ const axios = require('axios');
 // Variable declaration
 const router = express.Router();
 
-router.get('/fetchSuggestions/:query', async (req, res) => {
+router.get('/getResults/:query', async (req, res) => {
+	console.log('GET RESULTS', req.params.query);
+	// Add failsafes incase input is wrong
+	//Ability to get multiple pages
 	const response = await axios.get(
 		`http://www.omdbapi.com/?apikey=${process.env.APIKEY}&s=${req.params.query}`
 	);
-	res.send(response.data);
+	res.send(response.data).status(response.status);
+});
 
-router.get('/fetchResult/:query', async (req, res) => {
-	let response = await axios.get(
-		`http://www.omdbapi.com/?apikey=${process.env.APIKEY}&s=${req.params.query}`
-	);
+router.get('/getTitle/:imdbID', async (req, res) => {
+	console.log('GET TITLE', req.params.imdbID);
 
-	const imdbID = response.data.Search[0].imdbID;
-
+	// Add failsafes incase input is wrong
 	response = await axios.get(
-		`http://www.omdbapi.com/?apikey=${process.env.APIKEY}&i=${imdbID}&plot=full`
+		`http://www.omdbapi.com/?apikey=${process.env.APIKEY}&i=${req.params.imdbID}&plot=full`
 	);
 
-	res.send(response.data).status(200);
+	res.send(response.data).status(response.status);
 });
 
 module.exports = router;

@@ -34,26 +34,26 @@ export default defineConfig({
 						type: 'image/png'
 					}
 				],
-				name: 'Testapplikation',
-				short_name: 'Testapp',
-				start_url: '.',
-				theme_color: 'red'
+				name: 'MovieDB',
+				short_name: 'MDB',
+				start_url: '/',
+				theme_color: 'blue'
 			},
 			registerType: 'autoUpdate',
 			workbox: {
-				globPatterns: [
-					'assets/**',
-					'index.html',
-					'manifest.webmanifest'
-				],
+				globPatterns: ['assets/**', 'index.html', 'manifest.webmanifest'],
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',
-						urlPattern: '/api/'
+						urlPattern: /http:\/\/localhost\:3000\/api\/getTitle\/[.*]/
 					},
 					{
 						handler: 'NetworkFirst',
-						urlPattern: new RegExp('/api/[0-9a-f-]+/?')
+						urlPattern: /http:\/\/localhost\:3000\/api\/getResults\/Friend/
+					},
+					{
+						handler: 'NetworkFirst',
+						urlPattern: 'https://fonts.googleapis.com/icon?family=Material+Icons'
 					}
 				]
 			}
