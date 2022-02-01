@@ -54,8 +54,21 @@
 		},
 		methods: {
 			async getTitle(input) {
+				if (localStorage.getItem('favorites')) {
+					let favorites = JSON.parse(localStorage.getItem('favorites'));
+					favorites = favorites.filter((o) => o.imdbID === this.$route.params.imdbID);
+					if (favorites.length == 1) {
+						this.isFavorite = true;
+						this.title = favorites[0];
+						return;
+					}
+				}
+				// A request to the api is only made if the title is not already saved locally
 				const response = await this.axios.get(`/api/getTitle/${input}`);
-				this.title = response.data;
+				if (response.data.Response == 'True') {
+					this.title = response.data;
+					return;
+				}
 			},
 			prepareGenres() {
 				if (typeof this.title.Genre == 'string') this.title.Genre = this.title.Genre.split(', ');
@@ -165,11 +178,7 @@
 			}
 		},
 		created() {
-			if (navigator.onLine) {
-				this.getTitle(this.$route.params.imdbID);
-			} else {
-				this.getTitleOffline();
-			}
+			this.getTitle(this.$route.params.imdbID);
 		},
 		watch: {
 			title() {
