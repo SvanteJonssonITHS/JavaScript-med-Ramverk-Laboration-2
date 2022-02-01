@@ -45,15 +45,19 @@ export default defineConfig({
 				runtimeCaching: [
 					{
 						handler: 'NetworkFirst',
-						urlPattern: /http:\/\/localhost\:3000\/api\/getTitle\/[.*]/
+						urlPattern: /http:\/\/localhost\:3000\/api\/getTitle\/.+/
 					},
 					{
 						handler: 'NetworkFirst',
-						urlPattern: /http:\/\/localhost\:3000\/api\/getResults\/Friend/
+						urlPattern: /http:\/\/localhost:3000\/api\/getResults\/.+/
 					},
 					{
 						handler: 'NetworkFirst',
 						urlPattern: 'https://fonts.googleapis.com/icon?family=Material+Icons'
+					},
+					{
+						handler: 'NetworkFirst',
+						urlPattern: 'https://fonts.gstatic.com/s/materialicons/v121/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2'
 					}
 				]
 			}
